@@ -41,6 +41,7 @@ public enum PushNotificationStatus: CaseIterable {
     case .provisional:
       self = .provisional
     #if swift(>=5.3)
+      // swiftlint:disable switch_case_alignment
       case .ephemeral:
         self = .provisional
     #endif

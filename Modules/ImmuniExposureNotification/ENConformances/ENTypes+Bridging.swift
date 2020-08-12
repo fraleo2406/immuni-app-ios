@@ -120,6 +120,7 @@ extension ExposureNotificationStatus {
     case (.authorized, .restricted):
       self = .restricted
     #if swift(>=5.3)
+      // swiftlint:disable switch_case_alignment
       case (.authorized, .paused):
         self = .restricted
       case (.authorized, .unauthorized):
