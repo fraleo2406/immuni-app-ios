@@ -102,28 +102,27 @@ extension ENExposureInfo: ExposureInfo {
 
 extension ExposureNotificationStatus {
   init(authorizationStatus: ENAuthorizationStatus, frameworkStatus: ENStatus) {
-    switch authorizationStatus {
-    case .unknown:
+    switch (authorizationStatus, frameworkStatus) {
+    case (.unknown, _):
       self = .unknown
-    case .restricted:
+    case (.restricted, _):
       self = .restricted
-    case .notAuthorized:
+    case (.notAuthorized, _):
       self = .notAuthorized
-    case .authorized:
-      switch frameworkStatus {
-      case .unknown:
-        self = .authorized
-      case .active:
-        self = .authorizedAndActive
-      case .disabled:
-        self = .authorizedAndInactive
-      case .bluetoothOff:
-        self = .authorizedAndBluetoothOff
-      case .restricted:
-        self = .restricted
-      @unknown default:
-        self = .authorized
-      }
+    case (.authorized, .unknown):
+      self = .authorized
+    case (.authorized, .active):
+      self = .authorizedAndActive
+    case (.authorized, .disabled):
+      self = .authorizedAndInactive
+    case (.authorized, .bluetoothOff):
+      self = .authorizedAndBluetoothOff
+    case (.authorized, .restricted):
+      self = .restricted
+    case (.authorized, .paused):
+      self = .restricted
+    case (.authorized, .unauthorized):
+      self = .notAuthorized
     @unknown default:
       self = .unknown
     }
