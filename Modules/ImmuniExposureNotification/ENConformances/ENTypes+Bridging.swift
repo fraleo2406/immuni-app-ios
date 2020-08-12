@@ -119,10 +119,12 @@ extension ExposureNotificationStatus {
       self = .authorizedAndBluetoothOff
     case (.authorized, .restricted):
       self = .restricted
-    case (.authorized, .paused):
-      self = .restricted
-    case (.authorized, .unauthorized):
-      self = .notAuthorized
+    #if swift(>=5.3)
+      case (.authorized, .paused):
+        self = .restricted
+      case (.authorized, .unauthorized):
+        self = .notAuthorized
+    #endif
     @unknown default:
       self = .unknown
     }

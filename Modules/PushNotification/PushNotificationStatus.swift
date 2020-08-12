@@ -40,8 +40,10 @@ public enum PushNotificationStatus: CaseIterable {
       self = .authorized
     case .provisional:
       self = .provisional
-    case .ephemeral:
-      self = .provisional
+    #if swift(>=5.3)
+      case .ephemeral:
+        self = .provisional
+    #endif
     @unknown default:
       self = .notDetermined
     }
